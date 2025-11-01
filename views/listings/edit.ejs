@@ -1,13 +1,6 @@
 <!-- help us in edit the the existing content -->
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TheComfortKey</title>
-</head>
-<body>
+<% layout("layouts/boilerplate")%>
      <h3>Edit your Listings</h3>
      <!-- to send the edit info to that particular id -->
     <form method="POST" action="/listings/<%= listing._id %>?_method=PUT">
@@ -33,6 +26,5 @@
       />
       <br /><br />
       <button>Edit</button>
+      <br>
     </form>
-</body>
-</html>

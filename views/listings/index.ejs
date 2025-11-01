@@ -1,7 +1,7 @@
 <!-- conent that is shwoing on the screen -->
 <% layout("layouts/boilerplate")%>
 
-<body>
+
  <h1>All Listings</h1>  
  <!-- <form  method="get" action="/listings/new">
     <button>Create New Listing
@@ -9,33 +9,46 @@
  </button></form> -->
  <!-- trying to print the title for of lists in data -->
    <!--  used for  to print  onluy output  -->
-<div class="row row-cols-lg-3  row-cols-md-2  row-cols-sm-1">
-<% for(let listing of allListings){%>
-<div class="card" style="width: 20rem; margin : 10px;">
-  <img 
-  class="card-img-top" style ="height : 20rem ; "
-  src="<%= listing.image?.url || listing.image || 'https://images.unsplash.com/photo-1722612222199-02fee4b61370?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=387' %>" 
-  alt="listing"
-/>
 
-  <div class="card-body" >
-    <h5 class="card-title"><%= listing.title %></h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-  </div>
-  <ul class="list-group list-group-flush">
+   <!-- to set no of card in small md and largw -->
+<div class="row row-cols-1 row-cols-md-3 g-4">
+  <% for(let listing of allListings){ %>
+  
+   <!-- on clicking cards u go to direct on details  -->
+  <div class="col">
+      <div class="card" style="margin:10px; position: relative;">
+          <a href="/listings/<%= listing._id %>" class ="Listing-link">
+<div class="image-wrapper"> <img 
+          class="card-img-top" 
+          style="height:20rem;" 
+          src="<%= listing.image?.url || listing.image || 'https://images.unsplash.com/photo-1722612222199-02fee4b61370?auto=format&fit=crop&q=80&w=387' %>"
+          alt="listing"
+        />
+        <div class="card-image-overlay"></div></div>
+       
 
-    <li class="list-group-item">&#8377; <%=listing.price.toLocaleString("en-IN")%>/Night</li>
-  </ul>
-  <div class="card-body">
-        <a href="/listings/<%= listing._id %>" class="card-link">See Details</a>
-         <a href="/listings/<%= listing._id %>/booknow" class="card-link">Book Now</a>
-  </div>
+        <div class="card-body">
+          <h5 class="card-title"><%= listing.title %></h5>
+          <p class="card-text">Some quick example text...</p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">₹ <%= listing.price ? Number(listing.price).toLocaleString("en-IN") : "N/A" %> / Night
+</li>
+        </ul>
+</a>
+        <div class="card-body">
+          <a href="/listings/<%= listing._id %>" class="card-link">See Details</a>
+          <a href="/listings/<%= listing._id %>/booknow" class="card-link">Book Now</a>
+        </div>
+      </div>
+    </div>
+
+  
+  <% } %>
 </div>
-<%}%>
 
-
-</div>
-   
+  
+  
 
 
 
@@ -46,7 +59,7 @@
   <%  }%>
 
  </ul>  -->
-</body>
+
 
 
 
