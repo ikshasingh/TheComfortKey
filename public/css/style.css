@@ -1,3 +1,91 @@
 body{
-    background-color: rgb(197, 122, 10);
+   font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  
 }
+.navbar{
+    height: 5rms;
+    background-color: #2a0a0f;
+}
+
+.fa-hotel{
+    font-size: 2rem;
+    color:#f3efe9;
+}
+.nav-link{
+    color:#f3efe9 !important;
+}
+
+.navbar-toggler{
+    background-color: #f3efe9 !important;
+     
+    
+}
+
+/* styling footer */
+.f-info-Links a{
+    text-decoration: none;
+    background-color:#f3efe9 ;
+    color: #2a0a0f;
+}
+
+.f-info-Links a:hover{
+    text-decoration: underline;
+}
+.f-info-Links, .f-info-social, .f-info-brand{
+    padding: 1rem;
+    width:100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.f-info-social i{
+    font-size: 1.2rem;
+    margin-right: 1rem;
+}
+
+.f-info-social i:hover{
+    font-size: 1.5rem;
+}
+
+
+.f-info{
+    text-align: center;
+    height: 8rem;
+    background-color: #f3efe9;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: space-evenly;
+
+
+}
+
+
+/* ?cards */
+
+.card{
+    border: none !important;
+    margin-bottom: 2rem;
+
+}
+.card-body{
+    margin-bottom: 1rem;
+}
+.card-body a{
+    margin-bottom: 1rem;
+}
+
+.card-img-top{
+    border-radius: 1rem !important;
+    width: 100% !important;
+    object-fit: cover !important;
+}
+.card-body , .list-group-item{
+    padding: 0 !important;
+}
+
+

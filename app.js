@@ -50,13 +50,13 @@ app.get("/" , (req , res) =>{
 
 
 
+
 // for redirecting us to index.ejs
 // index route index.ejs where its showing title of every data
 app.get("/listings" , async(req , res) =>{
    const allListings = await Listing.find({});
    res.render("listings/index.ejs", {allListings});
 });
-
 
 
 
@@ -69,8 +69,24 @@ app.get("/listings/new", (req, res) => {
   res.render("listings/new.ejs");
 });
 
+//  booking route
+app.get("/listings/:id/booknow", async (req, res) => {
+  const { id } = req.params;
+  const listing = await Listing.findById(id);
+  res.render("listings/booknow.ejs", { listing });
+});
 
 
+// booked route
+app.post("/listings/:id/booked", async (req, res) => {
+ 
+   const { id } = req.params;
+  const listing = await Listing.findById(id);
+  const bookingData = req.body.booking;
+  console.log("Booking Received:", bookingData); 
+  res.render("listings/booked.ejs", { listing, bookingData });
+});
+  
 
 // for show route when we click to anylink to show the data inside it
 app.get("/listings/:id" , async(req, res) =>{
@@ -88,6 +104,7 @@ app.post("/listings", async(req , res) =>{
 
     res.redirect("/listings");
 });
+
 
 
 // edit route
@@ -114,6 +131,12 @@ app.delete("/listings/:id", async(req, res) =>{
      console.log(deleteListing);
      res.redirect("/listings");
 });
+
+
+
+
+
+
 
 
 // creating sample data 

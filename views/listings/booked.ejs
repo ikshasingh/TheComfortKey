@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <h2>🎉 Booking Confirmed!</h2>
+
+<p>Thank you <%= bookingData.name %> for booking <strong><%= listing.title %></strong>!</p>
+
+<p><strong>Email:</strong> <%= bookingData.email %></p>
+<p><strong>Room Type:</strong> <%= bookingData.roomType %></p>
+<p><strong>Check-in:</strong> <%= bookingData.checkin %></p>
+<p><strong>Check-out:</strong> <%= bookingData.checkout %></p>
+<p><strong>Guests:</strong> <%= bookingData.guests %></p>
+<p><strong>Payment Method:</strong> <%= bookingData.payment %></p>
+
+<a href="/listings">Back to Listings</a>
+
+
+</body>
+</html>

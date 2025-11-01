@@ -282,8 +282,7 @@ const sampleListings = [
       "Experience the charm of historic Charleston in this beautifully restored cottage with a private garden.",
     image: {
       filename: "listingimage",
-      url: "https://images.unsplash.com/photo-1587381420270-3e1a5b9e6904?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGxvZGdlfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60",
-    },
+      url: "https://images.unsplash.com/photo-1739369123214-cdffd96cd3fd?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=870",
     price: 1600,
     location: "Charleston",
     country: "United States",
