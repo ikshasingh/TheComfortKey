@@ -1,30 +1,102 @@
 <!-- help us in edit the the existing content -->
-
 <% layout("layouts/boilerplate")%>
-     <h3>Edit your Listings</h3>
-     <!-- to send the edit info to that particular id -->
-    <form method="POST" action="/listings/<%= listing._id %>?_method=PUT">
-      <input name="listing[title]" value ="<%= listing.title%>" type="text" />
-      <br /><br />
-      <textarea
-        name="listing[description]"><%= listing.description%></textarea>
-      <br /><br />
-      <input
-        name="listing[image][url]"
-        value ="<%= listing.image.url %>"
-        type="text"
+
+<!-- form card for editing listings -->
+<div class="form-card">
+  <h3 class="form-heading">Edit Your Listing</h3>
+
+  <!-- edit form starts -->
+  <form method="POST" action="/listings/<%= listing._id %>?_method=PUT" novalidate class="needs-validation">
+
+    <!-- Title -->
+    <div class="mb-3">
+      <label class="form-label">Title</label>
+      <input 
+        name="listing[title]" 
+        value="<%= listing.title %>" 
+        type="text" 
+        class="form-control"
+        required
       />
-      <br /><br />
-      <input name="listing[price]" value ="<%= listing.price%>" type="number" />
-      <br /><br />
-      <input name="listing[country]" value ="<%= listing.country%>" type="text" />
-      <br /><br />
-      <input
-        name="listing[location]"
-        value ="<%= listing.location%>"
-        type="text"
+      <div class="valid-feedback">✅ Title looks good!</div>
+      <div class="invalid-feedback">❌ Please enter a title.</div>
+    </div>
+
+    <!-- Description -->
+    <div class="mb-3">
+      <label class="form-label">Description</label>
+      <textarea 
+        name="listing[description]" 
+        class="form-control"
+        rows="3"
+        required
+      ><%= listing.description %></textarea>
+      <div class="valid-feedback">✅ Description looks fine!</div>
+      <div class="invalid-feedback">❌ Please add a description.</div>
+    </div>
+
+    <!-- Image URL -->
+    <div class="mb-3">
+      <label class="form-label">Image URL</label>
+      <input 
+        name="listing[image][url]" 
+        value="<%= listing.image.url %>" 
+        type="text" 
+        class="form-control"
+        required
       />
-      <br /><br />
-      <button>Edit</button>
-      <br>
-    </form>
+      <div class="valid-feedback">✅ Image link looks valid!</div>
+      <div class="invalid-feedback">❌ Please provide an image URL.</div>
+    </div>
+
+    <!-- Price -->
+    <div class="mb-3">
+      <label class="form-label">Price</label>
+      <input 
+        name="listing[price]" 
+        value="<%= listing.price %>" 
+        type="number" 
+        class="form-control"
+        required
+      />
+      <div class="valid-feedback">✅ Price updated successfully!</div>
+      <div class="invalid-feedback">❌ Please enter a valid price.</div>
+    </div>
+
+    <!-- Country -->
+    <div class="mb-3">
+      <label class="form-label">Country</label>
+      <input 
+        name="listing[country]" 
+        value="<%= listing.country %>" 
+        type="text" 
+        class="form-control"
+        required
+      />
+      <div class="valid-feedback">✅ Country name looks fine!</div>
+      <div class="invalid-feedback">❌ Please enter a country name.</div>
+    </div>
+
+    <!-- Location -->
+    <div class="mb-3">
+      <label class="form-label">Location</label>
+      <input 
+        name="listing[location]" 
+        value="<%= listing.location %>" 
+        type="text" 
+        class="form-control"
+        required
+      />
+      <div class="valid-feedback">✅ Location looks great!</div>
+      <div class="invalid-feedback">❌ Please provide a location.</div>
+    </div>
+
+    <!-- Submit Button -->
+    <button class="add-btn">Update Listing</button>
+
+  </form>
+  <!-- edit form ends -->
+</div>
+
+<!-- linking js -->
+<script src="/js/script.js"></script>

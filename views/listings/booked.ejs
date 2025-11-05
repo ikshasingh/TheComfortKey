@@ -1,25 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-    <h2>🎉 Booking Confirmed!</h2>
+<% layout("layouts/boilerplate") %>
 
-<p>Thank you <%= bookingData.name %> for booking <strong><%= listing.title %></strong>!</p>
+<div class="confirm-wrapper">
 
-<p><strong>Email:</strong> <%= bookingData.email %></p>
-<p><strong>Room Type:</strong> <%= bookingData.roomType %></p>
-<p><strong>Check-in:</strong> <%= bookingData.checkin %></p>
-<p><strong>Check-out:</strong> <%= bookingData.checkout %></p>
-<p><strong>Guests:</strong> <%= bookingData.guests %></p>
-<p><strong>Payment Method:</strong> <%= bookingData.payment %></p>
+    <div class="confirm-card">
 
-<a href="/listings">Back to Listings</a>
+        <h2 class="confirm-title">✅ Booking Confirmed!</h2>
 
+        <p class="confirm-text">
+            Thank you <strong><%= bookingData.name %></strong> for booking 
+            <span class="hotel-name"><%= listing.title %></span>!
+        </p>
 
-</body>
-</html>
+        <div class="confirm-details">
+            <p><strong>Email:</strong> <%= bookingData.email %></p>
+            <p><strong>Room Type:</strong> <%= bookingData.roomType %></p>
+            <p><strong>Check-in:</strong> <%= bookingData.checkin %></p>
+            <p><strong>Check-out:</strong> <%= bookingData.checkout %></p>
+            <p><strong>Guests:</strong> <%= bookingData.guests %></p>
+            <p><strong>Payment Method:</strong> <%= bookingData.payment %></p>
+        </div>
+
+        <a href="/listings" class="confirm-btn">Back to Listings</a>
+    </div>
+
+</div>

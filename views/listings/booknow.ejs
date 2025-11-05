@@ -1,81 +1,173 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-<form method="POST" action="/listings/<%= listing._id %>/booked">
-  <div class="form-row">
-    <div class="form-group col-md-6">
-      <label for="inputName">Full Name</label>
-      <input type="text" class="form-control" id="inputName" name="booking[name]" placeholder="Enter your full name" required>
+<% layout("layouts/boilerplate") %>
+
+<!-- main booking page layout -->
+<div class="booking-page">
+
+  <!-- LEFT: FORM -->
+  <div class="left-form">
+    <div class="form-card">
+      <h3 class="form-heading">Book Your Stay</h3>
+
+      <!-- booking form starts -->
+      <form method="POST" action="/listings/<%= listing._id %>/booked" novalidate class="needs-validation">
+
+        <!-- name and email -->
+        <div class="form-row">
+          <div class="form-group col-md-6 mb-3">
+            <label class="form-label">Full Name</label>
+            <input 
+              type="text" 
+              class="form-control" 
+              name="booking[name]" 
+              placeholder="Enter your full name" 
+              required
+            />
+            <div class="valid-feedback">✅ Name looks great!</div>
+            <div class="invalid-feedback">❌ Please enter your full name.</div>
+          </div>
+
+          <div class="form-group col-md-6 mb-3">
+            <label class="form-label">Email</label>
+            <input 
+              type="email" 
+              class="form-control" 
+              name="booking[email]" 
+              placeholder="you@example.com" 
+              required
+            />
+            <div class="valid-feedback">✅ Email looks valid!</div>
+            <div class="invalid-feedback">❌ Please enter a valid email address.</div>
+          </div>
+        </div>
+
+        <!-- checkin and checkout -->
+        <div class="form-row">
+          <div class="form-group col-md-6 mb-3">
+            <label class="form-label">Check-In Date</label>
+            <input 
+              type="date" 
+              class="form-control" 
+              name="booking[checkin]" 
+              required
+            />
+            <div class="valid-feedback">✅ Check-in date selected!</div>
+            <div class="invalid-feedback">❌ Please choose a check-in date.</div>
+          </div>
+
+          <div class="form-group col-md-6 mb-3">
+            <label class="form-label">Check-Out Date</label>
+            <input 
+              type="date" 
+              class="form-control" 
+              name="booking[checkout]" 
+              required
+            />
+            <div class="valid-feedback">✅ Check-out date selected!</div>
+            <div class="invalid-feedback">❌ Please choose a check-out date.</div>
+          </div>
+        </div>
+
+        <!-- guests -->
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Number of Guests</label>
+          <input 
+            type="number" 
+            class="form-control" 
+            name="booking[guests]" 
+            min="1" 
+            max="10" 
+            placeholder="e.g. 2 adults" 
+            required
+          />
+          <div class="valid-feedback">✅ Guests added!</div>
+          <div class="invalid-feedback">❌ Please enter number of guests.</div>
+        </div>
+
+        <!-- room type and payment -->
+        <div class="form-row">
+          <div class="form-group col-md-6 mb-3">
+            <label class="form-label">Room Type</label>
+            <select class="form-control" name="booking[roomType]" required>
+              <option disabled selected>Choose...</option>
+              <option>Single Room</option>
+              <option>Double Room</option>
+              <option>Deluxe Room</option>
+              <option>Suite</option>
+            </select>
+            <div class="valid-feedback">✅ Room type selected!</div>
+            <div class="invalid-feedback">❌ Please select a room type.</div>
+          </div>
+
+          <div class="form-group col-md-6 mb-3">
+            <label class="form-label">Payment Method</label>
+            <select class="form-control" name="booking[payment]" required>
+              <option disabled selected>Select Payment Method...</option>
+              <option>Credit Card</option>
+              <option>Debit Card</option>
+              <option>UPI</option>
+              <option>Cash on Arrival</option>
+            </select>
+            <div class="valid-feedback">✅ Payment method chosen!</div>
+            <div class="invalid-feedback">❌ Please select a payment method.</div>
+          </div>
+        </div>
+
+        <!-- requests -->
+        <div class="mb-3">
+          <label class="form-label">Special Requests (Optional)</label>
+          <textarea 
+            class="form-control" 
+            name="booking[requests]" 
+            rows="3" 
+            placeholder="Any specific requests?"
+          ></textarea>
+        </div>
+
+        <!-- terms checkbox -->
+        <div class="form-group form-check mb-3">
+          <input 
+            class="form-check-input" 
+            type="checkbox" 
+            id="termsCheck" 
+            required
+          />
+          <label class="form-check-label" for="termsCheck">
+            I agree to the <a href="#">terms and conditions</a>
+          </label>
+          <div class="invalid-feedback">❌ You must agree before booking.</div>
+        </div>
+
+        <!-- submit button -->
+        <button class="add-btn">Book Now</button>
+
+      </form>
+      <!-- booking form ends -->
     </div>
-    <div class="form-group col-md-6">
-      <label for="inputEmail">Email</label>
-      <input type="email" class="form-control" id="inputEmail" name="booking[email]" placeholder="you@example.com" required>
+  </div>
+
+  <!-- RIGHT: SIDE CARD -->
+  <div class="right-card">
+    <div class="booking-side-card">
+
+      <img src="<%= listing.image.url %>" alt="Hotel" class="side-img" />
+
+      <h4 class="side-title"><%= listing.title %></h4>
+
+      <p class="side-desc">
+        Experience comfort and luxury with top-class facilities designed to make your stay unforgettable.
+      </p>
+
+      <ul class="side-features">
+        <li>✨ Free WiFi</li>
+        <li>🛏️ Comfortable Rooms</li>
+        <li>🍽️ Complimentary Breakfast</li>
+        <li>🏊 Swimming Pool</li>
+      </ul>
+
+      <p class="side-price">
+        <strong>₹ <%= listing.price %></strong> / night
+      </p>
+
     </div>
   </div>
-
-  <div class="form-row">
-    <div class="form-group col-md-6">
-      <label for="checkin">Check-In Date</label>
-      <input type="date" class="form-control" id="checkin" name="booking[checkin]" required>
-    </div>
-    <div class="form-group col-md-6">
-      <label for="checkout">Check-Out Date</label>
-      <input type="date" class="form-control" id="checkout" name="booking[checkout]" required>
-    </div>
-  </div>
-
-  <div class="form-group">
-    <label for="guests">Number of Guests</label>
-    <input type="number" class="form-control" id="guests" name="booking[guests]" min="1" max="10" placeholder="e.g. 2 adults" required>
-  </div>
-
-  <div class="form-group">
-    <label for="inputAddress">Address</label>
-    <input type="text" class="form-control" id="inputAddress" name="booking[address]" placeholder="1234 Main St, City" required>
-  </div>
-
-  <div class="form-row">
-    <div class="form-group col-md-6">
-      <label for="roomType">Room Type</label>
-      <select id="roomType" class="form-control" name="booking[roomType]" required>
-        <option selected disabled>Choose...</option>
-        <option>Single Room</option>
-        <option>Double Room</option>
-        <option>Deluxe Room</option>
-        <option>Suite</option>
-      </select>
-    </div>
-
-    <div class="form-group col-md-6">
-      <label for="payment">Payment Method</label>
-      <select id="payment" class="form-control" name="booking[payment]" required>
-        <option selected disabled>Select Payment Method...</option>
-        <option>Credit Card</option>
-        <option>Debit Card</option>
-        <option>UPI</option>
-        <option>Cash on Arrival</option>
-      </select>
-    </div>
-  </div>
-
-  <div class="form-group">
-    <label for="specialRequests">Special Requests (Optional)</label>
-    <textarea class="form-control" id="specialRequests" name="booking[requests]" rows="3" placeholder="Any specific requests?"></textarea>
-  </div>
-
-  <div class="form-group form-check">
-    <input class="form-check-input" type="checkbox" id="termsCheck" required>
-    <label class="form-check-label" for="termsCheck">
-      I agree to the <a href="#">terms and conditions</a>
-    </label>
-  </div>
-
-  <button type="submit" class="btn btn-success">Book Now</button>
-</form>
-</body>
-</html>
+</div>

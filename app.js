@@ -11,7 +11,8 @@ const path = require("path");
 const methodOverride = require("method-override")
 
 const ejsMate = require("ejs-mate");
-
+const wrapasync = require("./utils/wrapasync.js");
+const ExpressError = require("./utils/ExpressError.js");
 
 
 
@@ -53,10 +54,10 @@ app.get("/" , (req , res) =>{
 
 // for redirecting us to index.ejs
 // index route index.ejs where its showing title of every data
-app.get("/listings" , async(req , res) =>{
+app.get("/listings" , wrapasync(async(req , res) =>{
    const allListings = await Listing.find({});
    res.render("listings/index.ejs", {allListings});
-});
+}));
 
 
 
@@ -70,67 +71,70 @@ app.get("/listings/new", (req, res) => {
 });
 
 //  booking route
-app.get("/listings/:id/booknow", async (req, res) => {
+app.get("/listings/:id/booknow", wrapasync(async (req, res) => {
   const { id } = req.params;
   const listing = await Listing.findById(id);
   res.render("listings/booknow.ejs", { listing });
-});
+}));
 
 
 // booked route
-app.post("/listings/:id/booked", async (req, res) => {
+app.post("/listings/:id/booked", wrapasync(async (req, res) => {
  
    const { id } = req.params;
   const listing = await Listing.findById(id);
   const bookingData = req.body.booking;
   console.log("Booking Received:", bookingData); 
   res.render("listings/booked.ejs", { listing, bookingData });
-});
+}));
   
 
 // for show route when we click to anylink to show the data inside it
-app.get("/listings/:id" , async(req, res) =>{
+app.get("/listings/:id" , wrapasync(async(req, res) =>{
     let {id} = req.params;
     const listing = await Listing.findById(id);
     res.render("listings/show.ejs", {listing})
-})
+}));
 
 
 // create route
 
-app.post("/listings", async(req , res) =>{
+app.post("/listings", wrapasync( async(req , res , next) =>{
+ 
     const newListing = new Listing(req.body.listing);
   await newListing.save();
 
     res.redirect("/listings");
-});
+
+  
+}));
 
 
 
 // edit route
-app.get("/listings/:id/edit", async(req , res) =>{
+app.get("/listings/:id/edit", wrapasync(async(req , res) =>{
       let {id} = req.params;
     const listing = await Listing.findById(id);
     res.render("listings/edit.ejs", {listing});
-})
+}));
 
 
 // update route
-app.put("/listings/:id", async(req , res) =>{
+app.put("/listings/:id", wrapasync(async(req , res) =>{
      let {id} = req.params;
      await Listing.findByIdAndUpdate(id,{...req.body.listing});
    res.redirect(`/listings/${id}`);
 
-});
+}));
 
 
 // delete route
-app.delete("/listings/:id", async(req, res) =>{
+app.delete("/listings/:id",wrapasync( async(req, res) =>{
      let {id} = req.params;
      let deleteListing = await Listing.findByIdAndDelete(id);
      console.log(deleteListing);
      res.redirect("/listings");
-});
+}));
 
 
 
@@ -154,8 +158,18 @@ app.delete("/listings/:id", async(req, res) =>{
 //     console.log("sample was saved");
 //     res.send("successful testing");
 // });
+// the new version it is correct "*" is valid
+app.use((req, res, next) => {
+  next(new ExpressError("Page Not Found", 404));
+});
 
 
+// middleware for server side erroe
+app.use((err, req, res, next)=>{
+  let{statusCode , message } = err;
+  res.status(statusCode).send(message);
+ 
+});
 
 app.listen(8080 , ()=>{
 console.log("server is running to port");

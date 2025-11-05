@@ -1,31 +1,64 @@
-<!-- this shows the discription of every clicked link -->
-<% layout("layouts/boilerplate")%>
+<% layout("layouts/boilerplate") %>
 
+<div class="show-container">
 
-<body>
-    <h3> listing details</h3>
-    <ul>
-        <li><%= listing.title %></li>
-         <li><%= listing.description %></li>
-<li>
-  &#8377;<%= listing.price ? listing.price.toLocaleString("en-IN") : "N/A" %>
-</li>
-           <li><%= listing.location %></li>
-            <li><%= listing.country%></li>
-    </ul>
+  <div class="show-img-box">
+    <img src="<%= listing.image.url %>" class="show-img" alt="image">
+  </div>
 
-    <br>
-    <!-- to create a update or edit in pages -->
-    <a href="/listings/<%=listing._id %>/edit">Edit this Listing</a>
-<br>
-<!-- to delete any entry -->
-<br>
+  <div class="show-content">
 
-<form method ="POST" action="/listings/<%=listing._id%>/?_method=DELETE">
-    <button>Delete</button>
-</form>
-<br>
- <form action="/listings/<%= listing._id %>/booknow">
-    <button>Book now</button>
- </form>
-</body>
+    <h2 class="show-title"><%= listing.title %></h2>
+
+    <p class="show-rating">⭐ 4.6 • Excellent Stay</p>
+
+    <p class="show-location">
+      📍 <%= listing.location %>, <%= listing.country %>
+    </p>
+
+    <p class="show-price">
+      ₹ <%= listing.price.toLocaleString("en-IN") %> / night
+    </p>
+
+    <div class="show-description">
+      <h4>About this place</h4>
+      <p><%= listing.description %></p>
+    </div>
+
+    <div class="show-details">
+      <p>🛏️ <strong>Room Type:</strong> Comfortable Private Room</p>
+      <p>🕒 <strong>Check-In:</strong> 12:00 PM</p>
+      <p>🚪 <strong>Check-Out:</strong> 11:00 AM</p>
+      <p>👤 <strong>Host:</strong> TheComfortKey Team</p>
+    </div>
+
+    <div class="show-amenities">
+      <h4>Amenities</h4>
+      <ul>
+        <li>✨ Free WiFi</li>
+        <li>🌡️ AC Room</li>
+        <li>🍳 Breakfast Available</li>
+        <li>🛁 Clean Bathroom</li>
+      </ul>
+    </div>
+
+    <!-- Simple comment/review -->
+    <div class="show-reviews">
+      <h4>Guest Comment</h4>
+      <p>“Had a really good experience! Rooms were clean and staff was friendly.”</p>
+      <p class="review-user">— A Happy Guest</p>
+    </div>
+
+    <div class="show-buttons">
+      <a href="/listings/<%= listing._id %>/edit" class="pink-btn">Edit</a>
+
+      <form action="/listings/<%= listing._id %>?_method=DELETE" method="POST" class="inline-delete">
+        <button class="delete-btn">Delete</button>
+      </form>
+
+      <a href="/listings/<%= listing._id %>/booknow" class="pink-btn">Book Now</a>
+    </div>
+
+  </div>
+
+</div>
