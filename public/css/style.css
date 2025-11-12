@@ -722,5 +722,22 @@ select.form-control:focus {
   100% { transform: translateX(0); }
 }
 
+/* for error.ejs error page */
+.alert {
+  background: linear-gradient(145deg, #fff0f0, #ffe6e6);
+  border: 2px solid #ffb3b3 !important;
+  transition: 0.3s ease;
+}
+.alert:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(255, 90, 90, 0.2);
+}
+.btn-outline-danger:hover {
+  background-color: #ff4d6d;
+  color: white;
+  border-color: #ff4d6d;
+}
+
+
 
 

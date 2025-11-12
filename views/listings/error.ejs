@@ -1,0 +1,21 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="alert alert-danger shadow-lg text-center py-5 rounded-4 border-2 border-danger-subtle">
+        <div class="mb-3">
+          <i class="fa-solid fa-triangle-exclamation fa-3x text-danger"></i>
+        </div>
+
+        <h2 class="fw-bold text-danger mb-3">Oops! Something Went Wrong</h2>
+        <h5 class="text-dark mb-3"><%= err.message || "Unexpected error occurred." %></h5>
+        <p class="text-muted">Please try again or return to the home page.</p>
+
+        <a href="/listings" class="btn btn-outline-danger mt-3 px-4 py-2 rounded-pill">
+          <i class="fa-solid fa-house"></i> Go Back Home
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

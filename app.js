@@ -13,6 +13,7 @@ const methodOverride = require("method-override")
 const ejsMate = require("ejs-mate");
 const wrapasync = require("./utils/wrapasync.js");
 const ExpressError = require("./utils/ExpressError.js");
+const { listingSchema } = require("./schema.js");
 
 
 
@@ -71,6 +72,7 @@ app.get("/listings/new", (req, res) => {
 });
 
 //  booking route
+// give the wrapasync to all the async functions
 app.get("/listings/:id/booknow", wrapasync(async (req, res) => {
   const { id } = req.params;
   const listing = await Listing.findById(id);
@@ -99,17 +101,17 @@ app.get("/listings/:id" , wrapasync(async(req, res) =>{
 
 // create route
 
-app.post("/listings", wrapasync( async(req , res , next) =>{
- 
-    const newListing = new Listing(req.body.listing);
+app.post("/listings", wrapasync(async (req, res, next) => {
+  const { error } = listingSchema.validate(req.body);
+
+  if (error) {
+    throw new ExpressError(error.details[0].message, 400);
+  }
+
+  const newListing = new Listing(req.body.listing);
   await newListing.save();
-
-    res.redirect("/listings");
-
-  
+  res.redirect("/listings");
 }));
-
-
 
 // edit route
 app.get("/listings/:id/edit", wrapasync(async(req , res) =>{
@@ -121,6 +123,10 @@ app.get("/listings/:id/edit", wrapasync(async(req , res) =>{
 
 // update route
 app.put("/listings/:id", wrapasync(async(req , res) =>{
+  // if user send invalid data
+  if(!req.body.listing){
+    throw new ExpressError(400 , "Invalid Listing Data");
+  }
      let {id} = req.params;
      await Listing.findByIdAndUpdate(id,{...req.body.listing});
    res.redirect(`/listings/${id}`);
@@ -166,8 +172,9 @@ app.use((req, res, next) => {
 
 // middleware for server side erroe
 app.use((err, req, res, next)=>{
-  let{statusCode , message } = err;
-  res.status(statusCode).send(message);
+  let{statusCode =500, message ="Something went wrong"} = err;
+  // res.status(statusCode).send(message);
+ res.status(statusCode).render("listings/error.ejs", {err});
  
 });
 
