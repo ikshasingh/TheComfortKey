@@ -11,7 +11,8 @@ const ejsMate = require("ejs-mate");
 const ExpressError = require("./utils/ExpressError.js");
 const listing = require("./routes/listing.js");
 const review = require("./routes/review .js");
-
+const session = require("express-session");
+const Flash = require("connect-flash");
 
 
 
@@ -47,9 +48,16 @@ app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "/public")));
 
 
-
-
-
+const sessionOptions ={
+  secret: "mysecretcode",
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    expires: Date.now() + 1000 * 60 * 60 *24 *7,
+    maxAge: 1000 * 60 * 60 *24 *7,
+    httpOnly: true,
+  }
+};
 
 // root route
 app.get("/" , (req , res) =>{
@@ -57,6 +65,17 @@ app.get("/" , (req , res) =>{
 })
 
 
+
+
+app.use(session(sessionOptions));
+app.use(Flash());
+
+
+app.use((req , res , next) =>{
+  res.locals.success = req.flash("success");
+  res.locals.error = req.flash("error");
+  next();
+});
 
 
 

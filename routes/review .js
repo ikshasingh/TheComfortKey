@@ -33,6 +33,7 @@ router.post("/" ,validateReview, wrapasync( async(req , res)=>{
 
   // console.log("review saved");
   // res.send("new review saved");
+   req.flash("success", " Review Added Successfully");
 res.redirect(`/listings/${listing._id}`);
 
 
@@ -44,6 +45,7 @@ let {id , reviewId} = req.params;
 // reviews = array   and reviewid is review id that we want to delete 
 await Listing.findByIdAndUpdate(id , {$pull : {reviews : reviewId}});
  await Review.findByIdAndDelete(reviewId);
+  req.flash("success", " Review deleted Successfully");
  res.redirect(`/listings/${id}`);
 
 

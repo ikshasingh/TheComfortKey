@@ -1,0 +1,21 @@
+<% if (success && success.length > 0) { %>  
+<div class="alert alert-success alert-dismissible fade show col-6 offset-3">
+    <%= success %>                      
+                               <!-- for dipslaying dismiss button -->
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+<% } %>
+
+
+
+<% if (error && error.length > 0) { %>
+<div class="alert custom-error-alert alert-dismissible fade show col-md-6 offset-md-3" role="alert">
+    
+    <div class="error-icon">⚠️</div>
+
+    <span class="error-text"><%= error %></span>
+
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+</div>
+<% } %>
