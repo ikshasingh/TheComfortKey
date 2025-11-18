@@ -9,10 +9,20 @@ const path = require("path");// require ejs model
 const methodOverride = require("method-override")
 const ejsMate = require("ejs-mate");
 const ExpressError = require("./utils/ExpressError.js");
+
+
+// these three are router
 const listing = require("./routes/listing.js");
 const review = require("./routes/review .js");
+const sign = require("./routes/sign.js");
+
+
 const session = require("express-session");
 const Flash = require("connect-flash");
+const passport = require("passport");
+const localStrategy = require("passport-local");
+const User = require("./models/user.js");
+
 
 
 
@@ -71,6 +81,16 @@ app.use(session(sessionOptions));
 app.use(Flash());
 
 
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new localStrategy(User.authenticate()));
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+
+
+
 app.use((req , res , next) =>{
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
@@ -78,11 +98,20 @@ app.use((req , res , next) =>{
 });
 
 
+app.get("/demoUser" , async (req , res) =>{
+  let fakeuser = new User({username : "john" , email : "iksha@gmail.com"});
+
+ let reguser = await User.register(fakeuser , "chicken" );
+ res.send(reguser);
+});
+
 
 // using the express router
 app.use("/listings", listing);
 
 app.use("/listings/:id/reviews", review);
+
+app.use("/", sign);
 
 
 

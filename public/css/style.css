@@ -1000,6 +1000,10 @@ select.form-control:focus {
     border-radius: 10px;
     font-weight: 600;
 }
+
+
+
+
 /* --------------------------------------------------
    BEAUTIFUL ERROR FLASH ALERT (Pink theme Friendly)
 -------------------------------------------------- */
@@ -1036,3 +1040,101 @@ select.form-control:focus {
     opacity: 1;
 }
 
+
+/* for signup form */
+
+.signup-card {
+    max-width: 450px;
+    margin: 40px auto;
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border-top: 5px solid #D63384; /* dark pink */
+  }
+
+  .form-label {
+    font-weight: 600;
+    color: #D63384; 
+  }
+
+  .btn-pink {
+    background-color: #D63384 !important;
+    color: white;
+    border: none;
+    font-weight: 600;
+    transition: 0.3s;
+  }
+
+  .btn-pink:hover {
+    background-color: #7f204e !important;
+  }
+
+  .signup-title {
+    text-align: center;
+    color: #D63384;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+
+
+
+  /* for login  */
+  /* for login  */
+  .login-card {
+  max-width: 400px;
+  margin: 60px auto;
+  background: #ffffff;
+  padding: 35px;
+  border-radius: 20px;
+  box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+  border-top: 5px solid #D63384;
+}
+
+.login-title {
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 26px;
+  font-weight: 700;
+  color: #D63384;
+}
+
+.form-label {
+  font-weight: 600;
+  color: #D63384;
+}
+
+.form-control {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+}
+
+.btn-pink {
+  width: 100%;
+  padding: 12px;
+  background-color: #D63384;
+  color: white;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn-pink:hover {
+  background-color: #b72a6d;
+}
+
+.extra-options {
+  text-align: center;
+  margin-top: 15px;
+  
+  
+}
+.extra-options a{
+    color: #D63384 !important;
+   
+
+}
