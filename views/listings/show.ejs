@@ -1,11 +1,30 @@
 <% layout("layouts/boilerplate") %>
 
 <div class="show-container">
-
+       
   <!-- LEFT SIDE IMAGE -->
-  <div class="show-img-box">
+  <div class="show-img-box show-left">
       <img src="<%= listing.image.url %>" class="show-img" alt="image">
   </div>
+
+    <div class="greeting-box show-right ">
+<h2>
+    Hey 
+    <span><%= curruser ? curruser.username : "Guest" %></span>! 👋
+</h2>
+    
+    <p class="greet-sub">Here are some quick highlights of the property:</p>
+   <p><i class="bi bi-star-fill"></i> Top Rated Property</p>
+
+        <p><i class="bi bi-geo-alt-fill"></i> Located in <strong><%= listing.location %></strong></p>
+
+        <p><i class="bi bi-cash-stack"></i> Price: ₹ <%= listing.price %> / night</p>
+
+        <p><i class="bi bi-house-heart-fill"></i> ComfortKey Verified</p>
+       <p><i class="bi bi-person-fill"> </i>Owned by<span><b><%= listing.owner.username %></b></span></p>
+
+  </div>
+
 
   <!-- RIGHT SIDE CARD (DETAILS + REVIEWS) -->
   <div class="right-card">
@@ -13,7 +32,9 @@
       <!-- DETAILS SECTION -->
       <div class="show-content">
 
+
           <h2 class="show-title"><%= listing.title %></h2>
+
 
           <p class="show-rating">⭐ 4.6 • Excellent Stay</p>
 
@@ -51,11 +72,16 @@
         
 
           <div class="show-buttons">
-            <a href="/listings/<%= listing._id %>/edit" class="pink-btn">Edit</a>
+            <!-- to hide the button for whos not the owner -->
+            <% if (curruser && curruser._id.equals(listing.owner._id)) { %>
+
+            <a href="/listings/<%= listing._id %>/edit" class="pink-btn  own">Edit</a>
 
             <form action="/listings/<%= listing._id %>?_method=DELETE" method="POST" class="inline-delete">
               <button class="delete-btn">Delete</button>
             </form>
+
+            <% } %>
 
             <a href="/listings/<%= listing._id %>/booknow" class="pink-btn">Book Now</a>
           </div>
@@ -132,12 +158,25 @@
   <% for (let review of listing.reviews) { %>
 
     <div class="tk-wrap-review-card  ms-3 mb-3">
-            <p class="tk-wrap-review-text">john deo</p>
+
+      <div class="tk-rev">
+
+        <p class="tk-wrap-review-text user-rev">
+    <i class="bi bi-person-circle"></i>
+    <strong><%= listing.owner.username %></strong>
+</p>
+ <span class="tk-wrap-review-rating  rating"><%= review.rating %> ★</span>
+
+      </div>
+
       <p class="tk-wrap-review-text"><%= review.comment %></p>
-      <span class="tk-wrap-review-rating"><%= review.rating %> ★</span>
       <form  method ="POST" action ="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">
-  <button class="delete-icon-clean" type="submit" aria-label="Delete">
-    <i class="bi bi-trash-fill" aria-hidden="true"></i>
+  <button class="delete-icon-clean " type="submit" aria-label="Delete">
+
+    <!-- for hiding delete button for any other user -->
+     <% if (curruser && curruser._id.equals(listing.owner._id)) { %>
+    <i class="bi bi-trash-fill icon" aria-hidden="true"></i>
+    <% } %>
   </button>
 </form>
 

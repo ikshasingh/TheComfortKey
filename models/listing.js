@@ -32,10 +32,16 @@ const listingSchema = new Schema({
        type : Schema.Types.ObjectId,
        ref : "Review",
     },],
+
+    owner:{
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    }
 });
 
 listingSchema.post("findOneAndDelete", async (listing) =>{
   if(listing){
+// Review is what we reqired and listing is model name and reviews is array
     await Review.deleteMany({_id:  {$in : listing.reviews}});
   }
   

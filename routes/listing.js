@@ -2,22 +2,13 @@ const express = require("express");
 const router = express.Router();
 const wrapasync = require("../utils/wrapasync.js");
 const ExpressError = require("../utils/ExpressError.js");
-const { listingSchema ,reviewSchema} = require("../schema.js");
+
 const Listing = require("../models/listing.js");
+const{isLoggedIn , validateListing} = require("../middleware.js");
 
 
 
-const validateListing =(req , res , next)=>{
-  let {error} = listingSchema.validate(req.body);
-  if(error){
-    let msg = error.details.map((el) => el.message).join(",");
-   throw new ExpressError(msg, 400);
 
-
-}else{
-    next();
-}
-};
 
 
 // for redirecting us to index.ejs
@@ -34,17 +25,22 @@ router.get("/" , wrapasync(async(req , res) =>{
 // new route
 // clicking button will redirect u to add more items
 // New route (must come before /listings/:id)
-router.get("/new", (req, res) => {
+router.get("/new", isLoggedIn,(req, res) => {
+  
+  
   res.render("listings/new.ejs");
 });
 
 //  booking route
 // give the wrapasync to all the async functions
-router.get("/:id/booknow", wrapasync(async (req, res) => {
+router.get("/:id/booknow",  isLoggedIn, wrapasync(async (req, res) => {
   const { id } = req.params;
   const listing = await Listing.findById(id);
   res.render("listings/booknow.ejs", { listing });
 }));
+
+
+
 
 
 // booked route
@@ -65,20 +61,25 @@ router.get("/:id" , wrapasync(async(req, res) =>{
        if (!mongoose.isValidObjectId(id)) {
         req.flash("error", "Invalid listing URL.");
         return res.redirect("/listings");
-    }
-    const listing = await Listing.findById(id).populate("reviews");
+    }                                                              
+    const listing = await Listing.findById(id)
+    .populate("reviews")
+    .populate("owner");
     if(!listing){
       req.flash("error", " Listing you are looking for does not exist");
      return  res.redirect("/listings");
-    }
+    }console.log(listing);
     res.render("listings/show.ejs", {listing})
 }));
 
 
 // create route
 
-router.post("/", validateListing, wrapasync(async (req, res, next) => {
+router.post("/", validateListing,
+   isLoggedIn, 
+   wrapasync(async (req, res, next) => {
 const newListing = new Listing(req.body.listing);
+newListing.owner = req.user._id;
   await newListing.save();
   req.flash("success", "New Listing Created Successfully");
   res.redirect("/listings");
@@ -89,7 +90,7 @@ const newListing = new Listing(req.body.listing);
 
 
 // edit route
-router.get("/:id/edit", wrapasync(async(req , res) =>{
+router.get("/:id/edit", isLoggedIn, wrapasync(async(req , res) =>{
       let {id} = req.params;
          if (!mongoose.isValidObjectId(id)) {
         req.flash("error", "Invalid listing URL.");
@@ -106,7 +107,7 @@ router.get("/:id/edit", wrapasync(async(req , res) =>{
 
 
 // update route
-router.put("/:id", wrapasync(async(req , res) =>{
+router.put("/:id",   isLoggedIn, wrapasync(async(req , res) =>{
   // if user send invalid data
   if(!req.body.listing){
     throw new ExpressError(400 , "Invalid Listing Data");
@@ -121,7 +122,7 @@ router.put("/:id", wrapasync(async(req , res) =>{
 
 
 // delete route
-router.delete("/:id",wrapasync( async(req, res) =>{
+router.delete("/:id",  isLoggedIn, wrapasync( async(req, res) =>{
      let {id} = req.params;
      let deleteListing = await Listing.findByIdAndDelete(id);
      console.log(deleteListing);

@@ -1138,3 +1138,120 @@ select.form-control:focus {
    
 
 }
+
+/* for username */
+/* Keep container normal */
+.show-container {
+    width: 100%;
+}
+
+/* Make ONLY the first two children side-by-side */
+.show-img-box,
+.greeting-box {
+    display: inline-block;
+    vertical-align: top;
+}
+
+/* Set widths */
+.show-img-box {
+    width: 55%;
+}
+
+.greeting-box {
+    width: 40%;
+    margin-left: 3%;
+}
+
+/* Style greeting box */
+.greeting-box {
+    background: linear-gradient(135deg, #dd838e, #d8ccce);
+    color: #4f0b13;
+    padding: 18px 22px;
+    border-radius: 14px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+    height: 300px;
+}
+
+/* Style image */
+.show-img {
+    width: 100%;
+    height: auto;
+    border-radius: 14px;
+    object-fit: cover;
+}
+
+/* Ensure details stay below normally */
+.right-card {
+    margin-top: 20px;
+    display: block;
+    width: 100%;
+}
+
+
+
+.pink-btn{
+    background-color: rgb(102, 51, 156) !important;
+}
+
+/* Space between rating + comment */
+.review-top {
+    margin-bottom: 6px;
+}
+
+/* Rating styling */
+.tk-wrap-review-rating {
+    font-weight: bold;
+    font-size: 15px;
+    display: inline-block;
+    margin-bottom: 4px;
+}
+
+/* User icon styling */
+.user-rev i {
+    margin-right: 6px;
+    color: #6D2932;
+    font-size: 18px;
+}
+
+/* Delete button clean look */
+.delete-icon-clean {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.delete-icon-clean i {
+    color: red;
+    font-size: 18px;
+}
+
+.rating{
+    background-color: transparent !important;
+    color: #ff4d6d !important;
+}
+
+.tk-rev {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 10px !important;     /* spacing between name and rating */
+}
+
+/* Ensure the username text doesn’t wrap */
+.tk-wrap-review-text.user-rev {
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 5px !important;
+    white-space: nowrap !important;
+}
+
+/* Keep rating inline */
+.tk-wrap-review-rating.rating {
+    margin: 0 !important;
+    padding: 0 !important;
+    white-space: nowrap !important;
+    display: flex !important;
+    align-items: center !important;
+}
