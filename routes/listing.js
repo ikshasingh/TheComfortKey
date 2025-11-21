@@ -5,6 +5,8 @@ const ExpressError = require("../utils/ExpressError.js");
 
 const Listing = require("../models/listing.js");
 const{isLoggedIn , validateListing} = require("../middleware.js");
+const listingcontroller = require("../controllers/listing.js");
+
 
 
 
@@ -13,10 +15,7 @@ const{isLoggedIn , validateListing} = require("../middleware.js");
 
 // for redirecting us to index.ejs
 // index route index.ejs where its showing title of every data
-router.get("/" , wrapasync(async(req , res) =>{
-   const allListings = await Listing.find({});
-   res.render("listings/index.ejs", {allListings});
-}));
+router.get("/" , wrapasync(listingcontroller.index));
 
 
 
@@ -25,52 +24,23 @@ router.get("/" , wrapasync(async(req , res) =>{
 // new route
 // clicking button will redirect u to add more items
 // New route (must come before /listings/:id)
-router.get("/new", isLoggedIn,(req, res) => {
-  
-  
-  res.render("listings/new.ejs");
-});
+router.get("/new", isLoggedIn,listingcontroller.new);
 
 //  booking route
 // give the wrapasync to all the async functions
-router.get("/:id/booknow",  isLoggedIn, wrapasync(async (req, res) => {
-  const { id } = req.params;
-  const listing = await Listing.findById(id);
-  res.render("listings/booknow.ejs", { listing });
-}));
+router.get("/:id/booknow",  isLoggedIn, wrapasync(listingcontroller.booknow));
 
 
 
 
 
 // booked route
-router.post("/:id/booked", wrapasync(async (req, res) => {
- 
-   const { id } = req.params;
-  const listing = await Listing.findById(id);
-  const bookingData = req.body.booking;
-  console.log("Booking Received:", bookingData); 
-  res.render("listings/booked.ejs", { listing, bookingData });
-}));
+router.post("/:id/booked", wrapasync(listingcontroller.booked));
   
 
 // for show route when we click to anylink to show the data inside it
 const mongoose = require("mongoose");
-router.get("/:id" , wrapasync(async(req, res) =>{
-    let {id} = req.params;
-       if (!mongoose.isValidObjectId(id)) {
-        req.flash("error", "Invalid listing URL.");
-        return res.redirect("/listings");
-    }                                                              
-    const listing = await Listing.findById(id)
-    .populate("reviews")
-    .populate("owner");
-    if(!listing){
-      req.flash("error", " Listing you are looking for does not exist");
-     return  res.redirect("/listings");
-    }console.log(listing);
-    res.render("listings/show.ejs", {listing})
-}));
+router.get("/:id" , wrapasync(listingcontroller.show));
 
 
 // create route
