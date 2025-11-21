@@ -121,30 +121,30 @@
   <!-- RATING DROPDOWN -->
  <!-- ⭐ EMOJI RATING INPUT -->
 <div class="rating-box emoji-rating">
-  <label class="rating-label">Your Rating</label>
+ 
 
-  <div class="emoji-row">
-    
-    <input type="radio" id="rate1" name="review[rating]" value="1" required>
-    <label for="rate1" class="emoji angry">😡</label>
 
-    <input type="radio" id="rate2" name="review[rating]" value="2">
-    <label for="rate2" class="emoji sad">😕</label>
+  <legend class="rating-legend">How was your stay?</legend>
 
-    <input type="radio" id="rate3" name="review[rating]" value="3">
-    <label for="rate3" class="emoji neutral">😐</label>
+ <fieldset class="starability-slot">
+  
 
-    <input type="radio" id="rate4" name="review[rating]" value="4">
-    <label for="rate4" class="emoji happy">😊</label>
 
-    <input type="radio" id="rate5" name="review[rating]" value="5">
-    <label for="rate5" class="emoji love">😍</label>
+  <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." />
+  <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+  <label for="first-rate1" title="Terrible">1 star</label>
+  <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+  <label for="first-rate2" title="Not good">2 stars</label>
+  <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+  <label for="first-rate3" title="Average">3 stars</label>
+  <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+  <label for="first-rate4" title="Very good">4 stars</label>
+  <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+  <label for="first-rate5" title="Amazing">5 stars</label>
+</fieldset>
 
-  </div>
 
-  <div class="invalid-feedback d-block">
-    Please select a rating.
-  </div>
+ 
 </div>
 
 
@@ -182,9 +182,13 @@
 
         <p class="tk-wrap-review-text user-rev">
     <i class="bi bi-person-circle"></i>
-    <strong><%= listing.owner.username %></strong>
+   <strong><%= review.author ? review.author.username : "Unknown" %></strong>
+
 </p>
- <span class="tk-wrap-review-rating  rating"><%= review.rating %> ★</span>
+   
+  <p class="starability-result" data-rating="<%= review.rating %>">
+  Rated: <%= review.rating %> stars
+</p>
 
       </div>
 
@@ -193,9 +197,10 @@
   <button class="delete-icon-clean " type="submit" aria-label="Delete">
 
     <!-- for hiding delete button for any other user -->
-     <% if (curruser && curruser._id.equals(listing.owner._id)) { %>
+    <% if (curruser && review.author && curruser._id.equals(review.author._id)) { %>
     <i class="bi bi-trash-fill icon" aria-hidden="true"></i>
-    <% } %>
+<% } %>
+
   </button>
 </form>
 

@@ -1,5 +1,5 @@
 const Listing = require("../models/listing.js");
-
+const mongoose = require("mongoose");
 
 module.exports.index = async(req , res) =>{
    const allListings = await Listing.find({});
@@ -33,7 +33,7 @@ module.exports.booked = async (req, res) => {
 };
 
 
-const mongoose = require("mongoose");
+
 module.exports.show = async(req, res) =>{
     let {id} = req.params;
        if (!mongoose.isValidObjectId(id)) {
@@ -41,13 +41,17 @@ module.exports.show = async(req, res) =>{
         return res.redirect("/listings");
     }                                                              
     const listing = await Listing.findById(id)
-    .populate("reviews")
+    .populate({
+      path: "reviews",
+       populate:{
+        path:"author"},})
     .populate("owner");
     if(!listing){
       req.flash("error", " Listing you are looking for does not exist");
      return  res.redirect("/listings");
     }console.log(listing);
-    res.render("listings/show.ejs", {listing})
+    res.render("listings/show.ejs", {listing,
+    curruser: req.user,})
 };
 
 

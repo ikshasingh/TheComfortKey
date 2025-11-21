@@ -896,8 +896,11 @@ select.form-control:focus {
     margin-top: 10px !important;
     width: 100% !important;
     align-items: flex-start !important;
+    
 }
-
+.review-helper{
+    font-size: medium;
+}
 /* Small card – forced width */
 .tk-wrap-review-card {
     width: 500px !important;          /* FIXED SMALL WIDTH */
@@ -1255,3 +1258,27 @@ select.form-control:focus {
     display: flex !important;
     align-items: center !important;
 }
+
+
+/* Slightly smaller user icon */
+.tk-wrap-review-text.user-rev i {
+  font-size: 20px;     /* was 28 — now perfect medium */
+  margin-right: 6px;
+}
+
+/* Slightly smaller username */
+.tk-wrap-review-text.user-rev strong {
+  font-size: 16px;     /* was 20 — now clean + balanced */
+  font-weight: 600;
+}
+
+.rating-legend {
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  display: block !important;
+  color: #222 !important;
+  margin-bottom: 10px !important;
+  padding: 0 !important;
+}
+
+
