@@ -10,7 +10,7 @@
       <h3>Create a New Listing</h3>
 
       <!-- form starts -->
-      <form method="POST" action="/listings" novalidate class="needs-validation">
+      <form method="POST" action="/listings" novalidate class="needs-validation"  enctype="multipart/form-data">
         <br>
 
         <!-- title -->
@@ -39,7 +39,7 @@
           <div class="invalid-feedback">❌ Please enter a description.</div>
         </div>
 
-        <!-- image -->
+        <!-- image-->
         <div class="mb-3">
           <label for="Image" class="form-label">Upload Image link</label>
           <input
@@ -53,6 +53,21 @@
           <div class="valid-feedback">✅ Image link looks valid!</div>
           <div class="invalid-feedback">❌ Please provide an image URL.</div>
         </div>
+ 
+
+         <!-- <div class="mb-3">
+          <label for="Image" class="form-label">Upload listing Image</label>
+          <input
+            name="listing[image]"
+            
+            type="file"
+            class="form-control"
+            required
+           
+          />
+          <div class="valid-feedback">✅ Image link looks valid!</div>
+          <div class="invalid-feedback">❌ Please provide an image URL.</div>
+        </div> -->
 
         <!-- to take price and country on same line -->
        <!-- price -->

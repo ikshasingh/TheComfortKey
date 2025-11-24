@@ -6,6 +6,8 @@ const ExpressError = require("../utils/ExpressError.js");
 const Listing = require("../models/listing.js");
 const{isLoggedIn , validateListing} = require("../middleware.js");
 const listingcontroller = require("../controllers/listing.js");
+const multer = require('multer')
+const upload = multer({dest:'uploads/'})
 
 
 
@@ -22,12 +24,39 @@ const listingcontroller = require("../controllers/listing.js");
 
 
 // create route
-.post(validateListing,
-   isLoggedIn, 
-   wrapasync(listingcontroller.create));
+// .post( isLoggedIn, validateListing,
+  
+//    wrapasync(listingcontroller.create));
+
+// .post(upload.single('listing[image]'),(req,res) =>{
+//    res.send(req.file);
+// });
+
+
+
+router.route("/")
+  .get(wrapasync(listingcontroller.index))
+
+  .post(
+    isLoggedIn,
+    upload.single('listing[image]'),
+    validateListing,
+    wrapasync(listingcontroller.create)
+  );
 
 
    
+// new route
+// clicking button will redirect u to add more items
+// New route (must come before /listings/:id) bcz it will then 
+// treat /new as /id
+router.get("/new", isLoggedIn,listingcontroller.new);
+
+
+
+
+
+
 
 router
 .route("/:id")
@@ -42,10 +71,8 @@ router
 
 
 
-// new route
-// clicking button will redirect u to add more items
-// New route (must come before /listings/:id)
-router.get("/new", isLoggedIn,listingcontroller.new);
+
+
 
 
 
