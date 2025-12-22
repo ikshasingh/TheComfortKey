@@ -2,7 +2,62 @@
 <% layout("layouts/boilerplate")%>
 
 
- <h1>All Listings</h1>  
+ <!-- <h1>All Listings</h1>   -->
+ <div class="category-bar">
+  <a class="category-item" href="/listings">
+    <i class="bi bi-compass"></i>
+    <span>Explore</span>
+  </a>
+
+  <a class="category-item" href="/listings?category=rooms">
+    <i class="bi bi-house-door"></i>
+    <span>Rooms</span>
+  </a>
+
+  <a class="category-item" href="/listings?category=apartments">
+    <i class="bi bi-building"></i>
+    <span>Apartments</span>
+  </a>
+
+  <a class="category-item" href="/listings?category=villas">
+    <i class="bi bi-house-heart"></i>
+    <span>Villas</span>
+  </a>
+
+  <a class="category-item" href="/listings?category=dining">
+    <i class="bi bi-cup-hot"></i>
+    <span>Dining</span>
+  </a>
+
+  <a class="category-item" href="/listings?category=beach">
+    <i class="bi bi-water"></i>
+    <span>Beach</span>
+  </a>
+
+ 
+
+  <a class="category-item" href="/listings?category=nature">
+    <i class="bi bi-tree"></i>
+    <span>Nature</span>
+  </a>
+
+ 
+  <a class="category-item" href="/listings?category=luxury">
+    <i class="bi bi-gem"></i>
+    <span>Luxury</span>
+  </a>
+
+  <a class="category-item" href="/listings?category=trending">
+    <i class="bi bi-fire"></i>
+    <span>Trending</span>
+  </a>
+
+  <a class="category-item" href="/listings?category=popular">
+    <i class="bi bi-stars"></i>
+    <span>Popular</span>
+  </a>
+</div>
+
  <!-- <form  method="get" action="/listings/new">
     <button>Create New Listing
 
