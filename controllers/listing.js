@@ -56,15 +56,26 @@ module.exports.show = async(req, res) =>{
 
 
 
-module.exports.create = async (req, res, next) => {
-const newListing = new Listing(req.body.listing);
-newListing.owner = req.user._id;
+module.exports.create = async (req, res) => {
+  if (!req.file) {
+    throw new ExpressError("Image upload failed", 400);
+  }
+
+  const newListing = new Listing(req.body.listing);
+
+  // 🔥 THIS WAS MISSING
+  newListing.image = {
+    url: req.file.path,
+    filename: req.file.filename,
+  };
+
+  newListing.owner = req.user._id;
+
   await newListing.save();
+
   req.flash("success", "New Listing Created Successfully");
   res.redirect("/listings");
-
 };
-
 
 
 

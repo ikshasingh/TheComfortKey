@@ -1,4 +1,11 @@
 // creating routes here
+if(process.env.NODE_ENV !== "production"){
+    require("dotenv").config();
+}
+
+console.log("CLOUD_NAME =", process.env.CLOUD_NAME);
+console.log("CLOUD_API_KEY =", process.env.CLOUD_API_KEY);
+console.log("CLOUD_API_SECRET =", process.env.CLOUD_API_SECRET);
 
 const express = require("express");
 const app = express();
@@ -79,12 +86,9 @@ app.get("/" , (req , res) =>{
 
 app.use(session(sessionOptions));
 app.use(Flash());
-
-
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new localStrategy(User.authenticate()));
-
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
