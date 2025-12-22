@@ -52,7 +52,10 @@ router
 .get( wrapasync(listingcontroller.show))
 
 // update route
-.put(   isLoggedIn, wrapasync(listingcontroller.update))
+.put(   isLoggedIn, 
+   upload.single("image"),
+     
+  wrapasync(listingcontroller.update))
 
 // delete route
 .delete(  isLoggedIn, wrapasync( listingcontroller.deleteListing));

@@ -1282,3 +1282,12 @@ select.form-control:focus {
 }
 
 
+.img-preview {
+  width: 220px;        /* control length */
+  height: 150px;       /* control height */
+  object-fit: cover;   /* prevents image stretching */
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  display: block;
+  margin-bottom: 12px;
+}

@@ -63,7 +63,7 @@ module.exports.create = async (req, res) => {
 
   const newListing = new Listing(req.body.listing);
 
-  // 🔥 THIS WAS MISSING
+  
   newListing.image = {
     url: req.file.path,
     filename: req.file.filename,
@@ -102,7 +102,18 @@ module.exports.update = async(req , res) =>{
     throw new ExpressError(400 , "Invalid Listing Data");
   }
      let {id} = req.params;
-     await Listing.findByIdAndUpdate(id,{...req.body.listing});
+    let listing = await Listing.findByIdAndUpdate(id,{...req.body.listing});
+
+
+ if(typeof req.file !== "undefined"){
+
+   
+   listing.image = {
+    url: req.file.path,
+    filename: req.file.filename,
+  };
+  await listing.save();
+};
 
       req.flash("success", " Updated Successfully");
    res.redirect(`/listings/${id}`);

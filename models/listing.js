@@ -14,16 +14,9 @@ const listingSchema = new Schema({
 
 
     image: {
+      url: String,
     filename: String,
-    url: {
-      type: String,
-      default:
-        "https://unsplash.com/photos/indoor-atrium-with-hanging-plants-and-skylights-qgG7Muwa3vA",
-      set: (v) =>
-        v === ""
-          ? "https://unsplash.com/photos/indoor-atrium-with-hanging-plants-and-skylights-qgG7Muwa3vA"
-          : v,
-    },
+    
   },
     price : Number,
     location : String,
