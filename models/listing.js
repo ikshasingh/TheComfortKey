@@ -34,6 +34,10 @@ const listingSchema = new Schema({
     "popular",
     "heritage",
     "farm",
+     "budget",
+    "familty",
+    "work",
+   
   ],
   required: true,
 },

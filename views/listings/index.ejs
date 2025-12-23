@@ -9,10 +9,6 @@
     <span>Explore</span>
   </a>
 
-  <a class="category-item" href="/listings?category=mountain">
-    <i class="fa-solid fa-mountain"></i>
-    <span>Mountains</span>
-  </a>
 
   <a class="category-item" href="/listings?category=beach">
     <i class="bi bi-water"></i>
@@ -47,6 +43,31 @@
     <i class="bi bi-house-heart"></i>
     <span>Farm Stay</span>
   </a>
+ 
+  
+<a class="category-item" href="/listings?category=budget">
+  <i class="bi bi-cash-coin"></i>
+  <span>Budget</span>
+</a>
+
+<a class="category-item" href="/listings?category=family">
+  <i class="bi bi-people"></i>
+  <span>Family</span>
+</a>
+
+<a class="category-item" href="/listings?category=work">
+  <i class="bi bi-laptop"></i>
+  <span>Work</span>
+</a>
+
+
+  <div class="tax-toggle">
+<div class="form-check-reverse form-switch ">
+  <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
+  <label class="form-check-label" for="switchCheckDefault"> after taxes</label>
+</div>
+    
+  </div>
 </div>
 
  <!-- <form  method="get" action="/listings/new">
@@ -74,12 +95,32 @@
        
 
         <div class="card-body">
-          <h5 class="card-title"><%= listing.title %></h5>
-          <p class="card-text">Some quick example text...</p>
+          <h5 class="card-title"><b><%= listing.title %></b></h5>
+          
         </div>
+        <p class="card-text">
+  <%= listing.description.length > 70
+      ? listing.description.slice(0, 70) + "..."
+      : listing.description %>
+
+      
+<% if (listing.description.length > 70) { %>
+  <a class="card-body" href="/listings/<%= listing._id %>"> <i class="bi bi-box-arrow-up-right ms-1"></i>
+
+    
+  </a>
+<% } %>
+
+</p>
+
+       
+
+
         <ul class="list-group list-group-flush">
           <li class="list-group-item">₹ <%= listing.price ? Number(listing.price).toLocaleString("en-IN") : "N/A" %> / Night
+<i  class = "tax-info" hidden> &nbsp; &nbsp; &nbsp;   &nbsp;+18% gst</i>
 </li>
+
         </ul>
 </a>
         <div class="card-body">
@@ -94,17 +135,20 @@
 </div>
 
   
-  
+  <script>
+  const switchToggle = document.getElementById("switchCheckDefault");
+
+  switchToggle.addEventListener("change", () => {
+    const taxinfo = document.getElementsByClassName("tax-info");
+
+    for (let info of taxinfo) {
+      info.hidden = !switchToggle.checked;
+    }
+  });
+</script>
 
 
 
-
- <!-- <ul>
-    <% for(let listing of allListings){%>
-    <li><a href ="/listings/<%= listing._id %>"><%= listing.title %></a></li>
-  <%  }%>
-
- </ul>  -->
 
 
 

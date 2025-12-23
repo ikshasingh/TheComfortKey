@@ -27,7 +27,7 @@ res.locals.redirectUrl = req.session.redirectUrl;
 };
 
 
-module.exports. validateListing =(req , res , next)=>{
+module.exports.validateListing =(req , res , next)=>{
   let {error} = listingSchema.validate(req.body);
   if(error){
     let msg = error.details.map((el) => el.message).join(",");

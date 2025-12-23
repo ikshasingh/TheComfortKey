@@ -3,7 +3,9 @@
 
 <!-- form card for editing listings -->
 <div class="form-card">
-  <h3 class="form-heading">Edit Your Listing</h3>
+  <h3 class="form-heading"><i class="bi bi-pencil-square me-2"></i>Update Your Property
+
+</h3>
 
   <!-- edit form starts -->
   <form method="POST" action="/listings/<%= listing._id %>?_method=PUT" novalidate class="needs-validation" enctype="multipart/form-data">
@@ -98,7 +100,7 @@
     </div>
 
     <!-- Submit Button -->
-    <button class="add-btn">Update Listing</button>
+    <button class="add-btn"><i class="bi bi-check-circle me-2"></i>Update</button>
 
   </form>
   <!-- edit form ends -->

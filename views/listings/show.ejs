@@ -86,15 +86,15 @@
             <!-- to hide the button for whos not the owner -->
             <% if (curruser && curruser._id.equals(listing.owner._id)) { %>
 
-            <a href="/listings/<%= listing._id %>/edit" class="pink-btn  own">Edit</a>
+            <a href="/listings/<%= listing._id %>/edit" class="pink-btn  own"><i class="bi bi-pencil-square">&nbsp;</i>Edit</a>
 
             <form action="/listings/<%= listing._id %>?_method=DELETE" method="POST" class="inline-delete">
-              <button class="delete-btn">Delete</button>
+              <button class="delete-btn"><i class="fa-solid fa-trash"></i>Delete</button>
             </form>
 
             <% } %>
 
-            <a href="/listings/<%= listing._id %>/booknow" class="pink-btn">Book Now</a>
+            <a href="/listings/<%= listing._id %>/booknow" class="pink-btn"><i class="bi bi-calendar-check"></i>&nbsp;Book Now</a>
           </div>
 
       </div> <!-- END DETAILS -->
@@ -164,7 +164,8 @@
     </div>
   </div>
 
-  <button class="pink-btn submit-review-btn">Submit</button>
+  <button class="pink-btn submit-review-btn"><i class="bi bi-check-circle"></i>
+Submit</button>
 
 </form>
 <hr>

@@ -12,7 +12,6 @@ module.exports.listingSchema = Joi.object({
     
      category: Joi.string()
       .valid(
-"mountain",
     "beach",
     "city",
     "nature",
@@ -20,7 +19,11 @@ module.exports.listingSchema = Joi.object({
     "luxury",
     "popular",
     "heritage",
-    "farm"
+    "farm",
+    "budget",
+    "familty",
+    "work"
+
       )
       .required(),
   }).required(),

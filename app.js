@@ -25,6 +25,7 @@ const sign = require("./routes/sign.js");
 
 
 const session = require("express-session");
+const MongoStore = require("connect-mongo").default;
 const Flash = require("connect-flash");
 const passport = require("passport");
 const localStrategy = require("passport-local");
@@ -33,9 +34,11 @@ const User = require("./models/user.js");
 
 
 
-// to connect from database
-const mongo_url = "mongodb://127.0.0.1:27017/TheComfortKey";
+// // to connect from database
+// const mongo_url = "mongodb://127.0.0.1:27017/TheComfortKey";
+const dburl = process.env.ATLASDB_URL;
 
+console.log("DB URL =", dburl);
 
 
 
@@ -47,7 +50,7 @@ console.log(err);
 });
 
 async function main(){
-    await mongoose.connect(mongo_url);
+    await mongoose.connect(dburl);
 }
 
 
@@ -65,7 +68,24 @@ app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "/public")));
 
 
+
+const store = MongoStore.create({
+  mongoUrl: dburl,
+  crypto: {
+    secret:"mysecretcode",
+  },
+  
+  touchAfter: 24 * 3600,
+});
+
+store.on("error" , ()=>{
+  console.log("ERROR in MONGO SESSION STORE" , err);
+})
+
+
+
 const sessionOptions ={
+  store: store,
   secret: "mysecretcode",
   resave: false,
   saveUninitialized: true,
@@ -77,11 +97,9 @@ const sessionOptions ={
 };
 
 // root route
-app.get("/" , (req , res) =>{
-    res.send("hi i am root");
-})
-
-
+// app.get("/" , (req , res) =>{
+//     res.send("hi i am root");
+// })
 
 
 app.use(session(sessionOptions));
