@@ -1436,6 +1436,30 @@ select.form-control:focus {
   }
 }
 
+@media (max-width: 360px) {
+  .search-container {
+    max-width: 100px;
+  }
+
+  .search-input {
+    padding: 8px 0px;
+    font-size: 9px;
+  }
+
+  .search-btn {
+    padding: 4px 6px;
+    font-size: 10px;
+  }
+
+  .page-title {
+    font-size: 1.1rem;
+  }
+
+  .page-title i {
+    font-size: 1.05rem;
+  }
+}
+
 .page-title {
   font-weight: 600;
   letter-spacing: 0.3px;
@@ -1476,3 +1500,4 @@ select.form-control:focus {
     border-radius: 12px;
   }
 }
+
