@@ -1,19 +1,19 @@
 const Listing = require("../models/listing.js");
 const mongoose = require("mongoose");
 
-module.exports.index = async(req , res) =>{
-   const allListings = await Listing.find({});
-   res.render("listings/index.ejs", {allListings});
+module.exports.index = async (req, res) => {
+  const { category } = req.query;
+
+  let allListings;
+
+  if (category) {
+    allListings = await Listing.find({ category });
+  } else {
+    allListings = await Listing.find({});
+  }
+
+  res.render("listings/index.ejs", { allListings, category });
 };
-
-
-
-module.exports.new = (req, res) => {
-  
-  
-  res.render("listings/new.ejs");
-};
-
 
 
 module.exports.booknow = async (req, res) => {
@@ -55,15 +55,16 @@ module.exports.show = async(req, res) =>{
 };
 
 
-
 module.exports.create = async (req, res) => {
   if (!req.file) {
     throw new ExpressError("Image upload failed", 400);
   }
 
-  const newListing = new Listing(req.body.listing);
+  const newListing = new Listing({
+    ...req.body.listing,
+    category: req.body.listing.category.trim().toLowerCase(),
+  });
 
-  
   newListing.image = {
     url: req.file.path,
     filename: req.file.filename,
@@ -76,7 +77,6 @@ module.exports.create = async (req, res) => {
   req.flash("success", "New Listing Created Successfully");
   res.redirect("/listings");
 };
-
 
 
 module.exports.edit = async(req , res) =>{
@@ -119,6 +119,11 @@ module.exports.update = async(req , res) =>{
    res.redirect(`/listings/${id}`);
 
 };
+
+module.exports.new = (req, res) => {
+  res.render("listings/new.ejs");
+};
+
 
 
 module.exports.deleteListing = async(req, res) =>{

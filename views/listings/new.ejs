@@ -39,26 +39,28 @@
           <div class="invalid-feedback">❌ Please enter a description.</div>
         </div>
 
-        <!-- image-->
-        <!-- <div class="mb-3">
-          <label for="Image" class="form-label">Upload Image link</label>
-          <input
-            name="listing[image][url]"
-            placeholder="enter image URL/Link"
-            type="text"
-            class="form-control"
-            required
-           
-          />
-          <div class="valid-feedback">✅ Image link looks valid!</div>
-          <div class="invalid-feedback">❌ Please provide an image URL.</div>
-        </div> -->
+        <!-- category -->
+    <div class="mb-3">
+  <label class="form-label">Category</label>
+  <select name="listing[category]" class="form-select" required>
+    <option value="">Select category</option>
+    <option value="beach">Beach</option>
+    <option value="city">City</option>
+    <option value="nature">Nature</option>
+    <option value="camping">Camping</option>
+    <option value="luxury">Luxury</option>
+    <option value="popular">Popular</option>
+    <option value="heritage">Heritage</option>
+    <option value="farm">Farm Stay</option>
+  </select>
+</div>
+
  
  <!-- image-->
         <div class="mb-3">
           <label for="Image" class="form-label">Upload Image link</label>
           <input name="image"  type="file" class="form-control"
-           
+           required
           />
           <div class="valid-feedback">✅ Image  looks valid!</div>
           <div class="invalid-feedback">❌ Please provide an image </div>
