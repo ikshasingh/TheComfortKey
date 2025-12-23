@@ -72,7 +72,7 @@ app.use(express.static(path.join(__dirname, "/public")));
 const store = MongoStore.create({
   mongoUrl: dburl,
   crypto: {
-    secret:"mysecretcode",
+    secret:process.env.SECRET,
   },
   
   touchAfter: 24 * 3600,
@@ -86,7 +86,7 @@ store.on("error" , ()=>{
 
 const sessionOptions ={
   store: store,
-  secret: "mysecretcode",
+  secret: process.env.SECRET,
   resave: false,
   saveUninitialized: true,
   cookie: {
@@ -159,8 +159,8 @@ app.use((err, req, res, next)=>{
 });
 
 
+const PORT = process.env.PORT || 8080;
 
-
-app.listen(8080 , ()=>{
-console.log("server is running to port");
+app.listen(PORT, () => {
+  console.log(`server is running on port ${PORT}`);
 });
