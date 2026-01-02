@@ -1,0 +1,32 @@
+<div class="bookings-page">
+  <h2 class="mb-4">My Bookings</h2>
+
+  <% if (bookings.length === 0) { %>
+    <p>You haven’t booked anything yet.</p>
+  <% } %>
+
+  <% bookings.forEach(booking => { %>
+    <div class="card booking-card mb-3">
+      <div class="card-body">
+        <h5><%= booking.listing.title %></h5>
+
+        <p class="booking-meta">
+          <i class="bi bi-geo-alt"></i>
+          <%= booking.listing.location %>
+        </p>
+
+        <p class="booking-meta">
+          <i class="bi bi-calendar-event"></i>
+          <%= booking.checkIn.toDateString() %>
+          →
+          <%= booking.checkOut.toDateString() %>
+        </p>
+
+        <p class="booking-meta">
+          <i class="bi bi-cash-stack"></i>
+          ₹ <%= booking.totalPrice %>
+        </p>
+      </div>
+    </div>
+  <% }) %>
+</div>

@@ -30,6 +30,7 @@ const Flash = require("connect-flash");
 const passport = require("passport");
 const localStrategy = require("passport-local");
 const User = require("./models/user.js");
+const bookingRoutes = require("./routes/booking");
 
 
 
@@ -134,11 +135,18 @@ app.use("/listings", listing);
 
 app.use("/listings/:id/reviews", review);
 
+app.use("/bookings", bookingRoutes);
+
+
+
+
+
+app.get("/", (req, res) => {
+  res.redirect("/listings");
+});
+
+
 app.use("/", sign);
-
-
-
-
 
 
 // middleware for 404 error
@@ -154,7 +162,7 @@ app.use((req, res, next) => {
 app.use((err, req, res, next)=>{
   let{statusCode =500, message ="Something went wrong"} = err;
   // res.status(statusCode).send(message);
- res.status(statusCode).render("listings/error.ejs", {err});
+res.status(statusCode).render("error", { err });
  
 });
 

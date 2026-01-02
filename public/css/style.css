@@ -1501,3 +1501,30 @@ select.form-control:focus {
   }
 }
 
+/* =====================
+   MY BOOKINGS PAGE
+   ===================== */
+
+.bookings-page {
+  max-width: 900px;
+  margin: 30px auto;
+}
+
+.booking-card {
+  border-radius: 14px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+  border: none;
+}
+
+.booking-card h5 {
+  color: #561C24;
+  font-weight: 600;
+}
+
+.booking-meta {
+  font-size: 0.9rem;
+  color: #555;
+}
+.bookings-page {
+  border: 3px solid red;
+}
